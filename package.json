@@ -1,0 +1,10 @@
+{
+  "name": "ratchet-builder",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "grunt": "*",
+    "grunt-contrib-jade": "*",
+    "grunt-contrib-less": "*"
+  }
+}
