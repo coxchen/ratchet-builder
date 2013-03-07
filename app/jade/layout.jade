@@ -1,5 +1,5 @@
 doctype 5
-html(xmlns="http://www.w3.org/1999/xhtml")
+html(xmlns="http://www.w3.org/1999/xhtml", ng-app="ratchet-builder")
     head
         meta(charset="utf-8")
         title Ratchet-Builder
@@ -10,13 +10,16 @@ html(xmlns="http://www.w3.org/1999/xhtml")
         link(rel="apple-touch-icon-precomposed", sizes="72x72", href="img/apple-touch-icon-72x72.png")
         link(rel="apple-touch-icon-precomposed", sizes="57x57", href="img/apple-touch-icon-57x57.png")
         link(rel="stylesheet", href="css/ratchet.css")
+        link(rel="stylesheet", href="css/codemirror/codemirror.css")
+        link(rel="stylesheet", href="css/codemirror/eclipse.css")
         link(rel="stylesheet", href="css/docs.css")
         link(rel="stylesheet", href="css/prettify.css")
         link(rel="stylesheet", href="css/elusive-webfont.css")
         block cssext
+        script(type="text/javascript", src="js/3p/angular.min.js")
         script(type="text/javascript", src="js/3p/jquery-1.8.3.min.js")
         script(type="text/javascript", src="js/3p/ratchet.js")
-        script(type="text/javascript", src="js/docs.js")
+        script(type="text/javascript", src="js/3p/codemirror.js")
         script(type="text/javascript", src="js/3p/prettify.js")
         script(type="text/javascript", src="js/3p/fingerblast.js")
         block jsext

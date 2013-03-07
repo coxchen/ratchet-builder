@@ -1,5 +1,9 @@
 extends layout
 
+block jsext
+    script(type="text/javascript", src="js/ratchet-builder.js")
+    script(type="text/javascript", src="js/ratchet-builder-directives.js")
+
 block content
     <!-- Masthead & navigation -->
     nav.docs-outer-wrapper.docs-masthead
@@ -10,60 +14,23 @@ block content
         
             h1.docs-masthead-title Ratchet-Builder
 
-    .docs-outer-wrapper.docs-content
+    .docs-outer-wrapper.docs-content(ng-controller="PrototypeCtrl")
         <!-- Components -->
         section.docs-outer-wrapper.content-section.section-components
             .docs-inner-wrapper
-                .iphone
+                .iphone.iphone-fixed
                     .iphone-content
-                        #iwindow
-                            header.bar-title
-                                h1.title Title
-                <!-- Bars -->
+                        #iwindow(iphone-window, content="prototypeSrc")
+                
                 article#bars.component.active
                     h3.component-title Title bar
                     p.component-description Title bars are full width and docked to the top of the viewport.
 
                     .component-example.component-example-fullbleed
                         header.bar-title
-                            h1.title(ng-init="titleLabel = 'My Title'") {{titleLabel}}
-
-                    pre.prettyprint
-                        &lt;header class=&quot;bar-title&quot;&gt;
-                        &lt;h1 class=&quot;title&quot;&gt;Title&lt;/h1&gt;
-                        &lt;/header&gt;
-                article.component
-                    h3.component-title Title bar with buttons
-                    p.component-description Buttons in a title bar are left or right aligned and should be used for actions.
-
-                    .component-example.component-example-fullbleed
-                        header.bar-title
-                            a.button(href="#") Left
-                            h1.title My Title
-                            a.button(href="#") Right
-
-                    pre.prettyprint
-                        &lt;header class=&quot;bar-title&quot;&gt;
-                        &lt;a class=&quot;button&quot; href=&quot;#&quot;&gt;Left&lt;/a&gt;
-                        &lt;h1 class=&quot;title&quot;&gt;Title&lt;/h1&gt;
-                        &lt;a class=&quot;button&quot; href=&quot;#&quot;&gt;Right&lt;/a&gt;
-                        &lt;/header&gt;
-                article.component
-                    h3.component-title Title bar with directional buttons
-                    p.component-description Directional buttons in a title bar should be used for navigational purposes.
-
-                    .component-example.component-example-fullbleed
-                        header.bar-title
-                            a.button-prev Previous
                             h1.title Title
-                            a.button-next Next
 
-                    pre.prettyprint
-                        &lt;header class=&quot;bar-title&quot;&gt;
-                        &lt;a class=&quot;button-prev&quot; href=&quot;#&quot;&gt;Previous&lt;/a&gt;
-                        &lt;h1 class=&quot;title&quot;&gt;Title&lt;/h1&gt;
-                        &lt;a class=&quot;button-next&quot; href=&quot;#&quot;&gt;Next&lt;/a&gt;
-                        &lt;/header&gt;
+                    textarea(ng-model="prototypeSrc", rows='11', cols='60')
 
     .docs-outer-wrapper.docs-footer
         section.content-section
