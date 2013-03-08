@@ -343,6 +343,14 @@ h6 {
   bottom: 0;
 }
 
+.iphone .bar-title ~ .content {
+  top: 44px;
+}
+
+.iphone .bar-tab ~ .content {
+  bottom: 51px;
+}
+
 .component-example .content {
   position: relative;
 }
