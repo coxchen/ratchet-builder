@@ -10,6 +10,8 @@ block content
         .docs-inner-wrapper
             ul.docs-navigation
                 li.nav-item(data-ignore="push")
+                    a(href="http://maker.github.com/ratchet/") Ratchet
+                li.nav-item(data-ignore="push")
                     a(href="http://github.com/coxchen/ratchet-builder") View on Github
         
             h1.docs-masthead-title Ratchet-Builder
@@ -21,21 +23,21 @@ block content
                 .iphone.iphone-fixed
                     .iphone-content
                         #iwindow(iphone-window, content="prototypeSrc")
-                
+
                 article#bars.component.active
-                    h3.component-title Title bar
-                    p.component-description Title bars are full width and docked to the top of the viewport.
+                    h3.component-title Coding Area
+                    p.component-description Enter HTML and see the prototype immediately.
 
                     .component-example.component-example-fullbleed
                         header.bar-title
                             h1.title Title
 
-                    textarea(ng-model="prototypeSrc", rows='11', cols='60')
+                    textarea#code(ng-model="prototypeSrc", rows="11", cols="60")
 
     .docs-outer-wrapper.docs-footer
         section.content-section
             .docs-inner-wrapper
                 h3 License &amp; credit
                 p Ratchet-Builder is under the the MIT license, meaning you're basically free to use the framework as you please.
-                p Ratchet-Builder was lovingly crafted by <a data-ignore="push" href="http://www.twitter.com/coxchen">Cox Chen</a>.
+                p Ratchet-Builder was lovingly crafted by <a data-ignore="push" href="http://www.twitter.com/coxchen">Cox Chen</a>, based on <a href="http://maker.github.com/ratchet/">Ratchet</a>.
 
