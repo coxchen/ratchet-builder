@@ -29,7 +29,7 @@ function PrototypeCtrl ($scope, $rootScope) {
         "<header class=\"bar-title\">",
         "    <a class=\"button\" href=\"#\">Left</a>",
         "    <h1 class=\"title\">Title</h1>",
-        "    <a class=\"button\" href=\"#\">Right</a>",
+        "    <a class=\"button\" href=\"#\"><i class=\"icon-cog\"></i></a>",
         "</header>",
         "",
         "<nav class=\"bar-tab\">",
@@ -67,13 +67,14 @@ function PrototypeCtrl ($scope, $rootScope) {
         "            <a href=\"#\">",
         "                List item 2",
         "                <span class=\"chevron\"></span>",
+        "                <span class=\"count\">2</span>",
         "            </a>",
         "        </li>",
         "        <li>",
-        "            <a href=\"#\">",
-        "                List item 3",
-        "                <span class=\"chevron\"></span>",
-        "            </a>",
+        "            List item 3",
+        "            <div class=\"toggle\">",
+        "                <div class=\"toggle-handle\"></div>",
+        "            </div>",
         "        </li>",
         "    </ul>",
         "</div>"
@@ -83,5 +84,8 @@ function PrototypeCtrl ($scope, $rootScope) {
 
     $(".CodeMirror").css("border", "1px solid #0d0d0d");
 
+    setTimeout(function () {
+        new FingerBlast('.iphone-content');
+    }, 100);
 }
 
