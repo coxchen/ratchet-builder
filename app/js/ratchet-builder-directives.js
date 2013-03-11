@@ -8,7 +8,8 @@ rbDirect.directive("iphoneWindow", function ($compile) {
         $compile(element.contents())(scope);
 
         scope.$on("update-iwindow", function (event) {
-            element.html(scope.$parent.prototypeSrc);
+            var compiled = jade.compile(scope.$parent.prototypeCode);
+            element.html(compiled());
             $compile(element.contents())(scope);
         });
     };
@@ -22,3 +23,4 @@ rbDirect.directive("iphoneWindow", function ($compile) {
         }
     };
 });
+
