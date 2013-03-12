@@ -29,10 +29,12 @@ module.exports = function(grunt) {
       production: {
         options: {
           paths: ['app/css'],
-          yuicompress: true
+          yuicompress: false
         },
-        src: ['app/css/app.less'],
-        dest: 'app/css/app.css'
+        src: [
+          'app/less/my-bootstrap.less'
+        ],
+        dest: 'app/css/bootstrap.css'
       }
     },
     lint: {
@@ -78,6 +80,6 @@ module.exports = function(grunt) {
 
   // Default task.
   //grunt.registerTask('default', 'lint qunit concat min');
-  grunt.registerTask('default', ['jade']);
+  grunt.registerTask('default', ['jade', 'less']);
 
 };

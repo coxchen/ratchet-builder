@@ -24,7 +24,7 @@ block content
                     .iphone-content
                         #iwindow(iphone-window, content="prototypeSrc")
 
-                article#bars.component.active
+                article.component.active
                     h3.component-title Coding Area
                     div
                         span.component-description Enter
@@ -35,8 +35,18 @@ block content
                     .component-example.component-example-fullbleed
                         header.bar-title
                             h1.title Title
+                    .tabbable
+                        ul.nav.nav-tabs
+                            li.active
+                                a(href="#page1", data-toggle="tab") Page 1
+                            li
+                                a(href="#page2", data-toggle="tab") Page 2
+                        .tab-content
+                            #page1.tab-pane.active
+                                code-area
+                            #page2.tab-pane
+                                code-area
 
-                    textarea#code(ng-model="prototypeSrc", rows="11", cols="60")
 
     .docs-outer-wrapper.docs-footer
         section.content-section
