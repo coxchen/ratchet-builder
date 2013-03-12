@@ -13,7 +13,7 @@ block content
                     a(href="http://maker.github.com/ratchet/") Ratchet
                 li.nav-item(data-ignore="push")
                     a(href="http://github.com/coxchen/ratchet-builder") View on Github
-        
+
             h1.docs-masthead-title Ratchet-Builder
 
     .docs-outer-wrapper.docs-content(ng-controller="PrototypeCtrl")
@@ -26,8 +26,12 @@ block content
 
                 article#bars.component.active
                     h3.component-title Coding Area
-                    p.component-description Enter HTML and see the prototype immediately.
-
+                    div
+                        span.component-description Enter
+                        #cm-mode.ratchet-component.toggle.active
+                            .toggle-handle
+                        span.component-description code and see the prototype immediately.
+                    br
                     .component-example.component-example-fullbleed
                         header.bar-title
                             h1.title Title

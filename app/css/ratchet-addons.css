@@ -1,0 +1,17 @@
+#cm-mode {
+    font-size: 8px;
+    display: inline-block;
+    top: 12px;
+    margin: 4px;
+}
+
+#cm-mode:before {
+    content: "HTML";
+    right: 6px;
+}
+
+#cm-mode.active:before {
+    content: "JADE";
+    left: 10px;
+}
+
