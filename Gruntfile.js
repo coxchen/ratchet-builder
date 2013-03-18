@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Project configuration.
   grunt.initConfig({
@@ -56,8 +57,14 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: '<config:lint.files>',
-      tasks: 'lint qunit'
+      jade: {
+        files: 'app/jade/*.jade',
+        tasks: ['jade']
+      },
+      less: {
+        files: 'app/less/*.less',
+        tasks: ['less']
+      }
     },
     jshint: {
       options: {
@@ -81,5 +88,4 @@ module.exports = function(grunt) {
   // Default task.
   //grunt.registerTask('default', 'lint qunit concat min');
   grunt.registerTask('default', ['jade', 'less']);
-
 };

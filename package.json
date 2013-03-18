@@ -5,6 +5,7 @@
   "dependencies": {
     "grunt": "*",
     "grunt-contrib-jade": "*",
-    "grunt-contrib-less": "*"
+    "grunt-contrib-less": "*",
+    "grunt-contrib-watch": "*"
   }
 }
