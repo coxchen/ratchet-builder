@@ -170,3 +170,45 @@ rbDirect.directive("codeArea", function ($compile) {
     };
 });
 
+rbDirect.directive("apiJson", function ($compile, $http) {
+
+    var linker = function (scope, element, attrs) {
+
+        var cm = CodeMirror(element[0], {
+            theme : "lesser-dark",
+            mode: {name: "javascript", json: true},
+            indentUnit: 4,
+            tabSize: 4,
+            indentWithTabs: false,
+            smartIndent: true,
+            lineNumbers: true,
+            matchBrackets : true,
+            autoClearEmptyLines : true
+        });
+
+        scope.$on("test-api", function () {
+            console.log(scope.$parent.api);
+
+            var urlStr = scope.$parent.api;
+            $http({method: "GET", url: urlStr}).
+                success(function (data, status, headers, config) {
+                    var jsonStr = JSON.stringify(data),
+                        formattedJSON = jsl.format.formatJson(jsonStr);
+                    cm.setValue(formattedJSON);
+                }).
+                error(function (data, status, headers, config) {
+                    console.log("# got some error");
+                });
+        });
+    };
+
+    return {
+        restrict: "E",
+        replace: true,
+        link: linker,
+        scope: {
+            content: '='
+        }
+    };
+});
+

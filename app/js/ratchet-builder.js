@@ -27,5 +27,10 @@ function PrototypeCtrl ($scope, $window) {
         $scope.$broadcast("update-iwindow");
         $scope.$broadcast("tab-change");
     });
+
+    $scope.testAPI = function () {
+        $scope.api = $("#api").val();
+        $scope.$broadcast("test-api");
+    };
 }
 
