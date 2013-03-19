@@ -48,9 +48,16 @@ block content
                                 code-area
                 article.component.active
                     h3.component-title JSON API
-                    .input-append
-                        input#api(ng-model="api", type="text", style="width:500px;")
-                        .btn(style="height:30px;", ng-click="testAPI()") test
+                    .input-prepend.input-append
+                        .btn-group
+                            button.btn.dropdown-toggle(style="height:40px;", data-toggle="dropdown")
+                                span History
+                                span.caret
+                            ul.dropdown-menu
+                                li(ng-repeat="item in historyItems")
+                                    a(ng-click="recallHistory(item)") {{item}}
+                        input#api(ng-model="api", type="text", style="width:400px;")
+                        button.btn(style="height:40px;",ng-click="testAPI()") test
                     api-json
 
 

@@ -28,7 +28,14 @@ function PrototypeCtrl ($scope, $window) {
         $scope.$broadcast("tab-change");
     });
 
+    $scope.historyItems = [];
     $scope.testAPI = function () {
+        $scope.historyItems.push($scope.api);
+        $scope.$broadcast("test-api");
+    };
+
+    $scope.recallHistory = function (item) {
+        $scope.api = item;
         $scope.$broadcast("test-api");
     };
 }
