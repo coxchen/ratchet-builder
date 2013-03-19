@@ -12,10 +12,19 @@
 
 #cm-mode.active:before {
     content: "JADE";
-    left: 10px;
+    left: 5px;
 }
 
-/* Adopted from TOAST.css */
+/* Modifications to Ratchet
+--------------------------- */
+
+.list li.expanded {
+    padding-right: 10px;
+}
+
+
+/* Adopted from TOAST.css
+------------------------- */
 
 .unit {
     display: inline-block;
