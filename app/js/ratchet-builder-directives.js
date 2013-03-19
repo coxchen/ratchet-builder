@@ -134,6 +134,14 @@ rbDirect.directive("codeArea", function ($compile) {
             matchBrackets : true
         });
 
+        cm.addKeyMap({
+            Tab: function (cm) {
+                console.log("[cm][tab]");
+                var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
+                cm.replaceSelection(spaces, "end", "+input");
+            }
+        });
+
         cm.setValue(scope.code[scope.mode]);
         scope.prototypeCode = cm.getValue();
 
