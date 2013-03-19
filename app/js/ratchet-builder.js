@@ -29,7 +29,6 @@ function PrototypeCtrl ($scope, $window) {
     });
 
     $scope.testAPI = function () {
-        $scope.api = $("#api").val();
         $scope.$broadcast("test-api");
     };
 }
