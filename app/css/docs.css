@@ -440,7 +440,7 @@ h6 {
 
 .component {
   position: relative;
-  padding-top: 80px;
+  padding-top: 20px;
   width: 550px;
   margin-top: 1px;
   font-family: "proxima-nova", "HelveticaNeue-Light", "Helvetica Neue Light", Helvetica, Arial, sans-serif;
@@ -661,15 +661,15 @@ h6 {
   left: 0;
   z-index: 10001;
 }
-.iphone .iphone-content .modal { 
-  position: absolute; 
+.iphone .iphone-content .modal {
+  position: absolute;
 }
 .component-example .modal .content,
-.iphone .iphone-content .modal .content { 
-  margin-top: 44px; 
+.iphone .iphone-content .modal .content {
+  margin-top: 44px;
 }
-#modalsInPhone #iwindow > .button { 
-  margin: 10px; 
+#modalsInPhone #iwindow > .button {
+  margin: 10px;
 }
 
 
