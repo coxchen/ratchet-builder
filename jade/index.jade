@@ -1,0 +1,70 @@
+extends layout
+
+block jsext
+    script(type="text/javascript", src="js/ratchet-builder.js")
+    script(type="text/javascript", src="js/ratchet-builder-directives.js")
+
+block content
+    <!-- Masthead & navigation -->
+    nav.docs-outer-wrapper.docs-masthead
+        .docs-inner-wrapper
+            ul.docs-navigation
+                li.nav-item(data-ignore="push")
+                    a(href="http://maker.github.com/ratchet/") Ratchet
+                li.nav-item(data-ignore="push")
+                    a(href="http://github.com/coxchen/ratchet-builder") View on Github
+
+            h1.docs-masthead-title Ratchet-Builder
+
+    .docs-outer-wrapper.docs-content(ng-controller="PrototypeCtrl")
+        <!-- Components -->
+        section.docs-outer-wrapper.content-section.section-components
+            .docs-inner-wrapper
+                .iphone.iphone-fixed
+                    .iphone-content
+                        #iwindow(iphone-window, content="prototypeSrc")
+
+                article.component.active
+                    h3.component-title Coding Area
+                    div
+                        span.component-description Enter
+                        #cm-mode.ratchet-component.toggle.active
+                            .toggle-handle
+                        span.component-description code and see the prototype immediately.
+                    br
+                    .component-example.component-example-fullbleed
+                        header.bar-title
+                            h1.title Title
+                    .tabbable
+                        ul.nav.nav-tabs
+                            li.active
+                                a(href="#page1", data-toggle="tab") Page 1
+                            li
+                                a(href="#page2", data-toggle="tab") Page 2
+                        .tab-content
+                            #page1.tab-pane.active
+                                code-area
+                            #page2.tab-pane
+                                code-area
+                article.component.active
+                    h3.component-title JSON API
+                    .input-prepend.input-append
+                        .btn-group
+                            button.btn.dropdown-toggle(style="height:40px;", data-toggle="dropdown")
+                                span History
+                                span.caret
+                            ul.dropdown-menu
+                                li(ng-repeat="item in historyItems")
+                                    a(ng-click="recallHistory(item)") {{item}}
+                        input#api(ng-model="api", type="text", style="width:400px;")
+                        button.btn(style="height:40px;",ng-click="testAPI()") test
+                    api-json
+
+
+    .docs-outer-wrapper.docs-footer
+        section.content-section
+            .docs-inner-wrapper
+                h3 License &amp; credit
+                p Ratchet-Builder is under the the MIT license, meaning you're basically free to use the framework as you please.
+                p Ratchet-Builder was lovingly crafted by <a data-ignore="push" href="http://www.twitter.com/coxchen">Cox Chen</a>, based on <a href="http://maker.github.com/ratchet/">Ratchet</a>.
+
