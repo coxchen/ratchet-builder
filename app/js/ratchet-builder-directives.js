@@ -6,33 +6,39 @@ rbDirect.directive("iphoneWindow", function ($compile) {
 
         var compiler = {
             "jade": {
-                "compile": function (src) {
+                "compile": function (src, aScope) {
                     var compiled = jade.compile(src);
                     element.html(compiled());
-                    $compile(element.contents())(scope);
+                    $compile(element.contents())(aScope);
                 }
             },
             "htmlmixed": {
-                "compile": function (src) {
+                "compile": function (src, aScope) {
                     element.html(src);
-                    $compile(element.contents())(scope);
+                    $compile(element.contents())(aScope);
                 }
             }
         };
+
+        var newScope = null;
 
         scope.$on("update-iwindow", function (event) {
             var activeCodeArea = angular.element($(".tab-pane.active code-area")),
                 srcCode = activeCodeArea.scope().prototypeCode;
 
-            compiler[activeCodeArea.scope().mode].compile(srcCode);
+            if (newScope) newScope.$destroy();
+            newScope = scope.$new(true);
+            compiler[activeCodeArea.scope().mode].compile(srcCode, newScope);
 
             var jsonArea = angular.element($("api-json")),
                 providedJSON = jsonArea.scope().json;
 
             for (var key in providedJSON) {
-                scope[key] = providedJSON[key];
+                newScope[key] = providedJSON[key];
             }
+
             scope.$apply();
+            console.log(scope);
         });
     };
 
