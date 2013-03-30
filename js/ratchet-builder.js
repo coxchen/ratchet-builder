@@ -17,6 +17,10 @@ function PrototypeCtrl ($scope, $window) {
         $scope.$broadcast("update-iwindow");
     });
 
+    $scope.$on("json-change", function () {
+        $scope.$broadcast("update-iwindow");
+    });
+
     $(document).ready(function () {
         $scope.$broadcast("update-iwindow");
         new FingerBlast('.iphone-content');

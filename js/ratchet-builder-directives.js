@@ -23,7 +23,16 @@ rbDirect.directive("iphoneWindow", function ($compile) {
         scope.$on("update-iwindow", function (event) {
             var activeCodeArea = angular.element($(".tab-pane.active code-area")),
                 srcCode = activeCodeArea.scope().prototypeCode;
+
             compiler[activeCodeArea.scope().mode].compile(srcCode);
+
+            var jsonArea = angular.element($("api-json")),
+                providedJSON = jsonArea.scope().json;
+
+            for (var key in providedJSON) {
+                scope[key] = providedJSON[key];
+            }
+            scope.$apply();
         });
     };
 
@@ -45,8 +54,9 @@ rbDirect.directive("codeArea", function ($compile) {
             "jade": [
                 "header.bar-title",
                 "    a.button(href=\"#\") Left",
-                "    h1.title Title",
-                "    a.button(href=\"#\") Right",
+                "    h1.title {{myTitle}}",
+                "    a.button(href=\"#\")",
+                "        i(ng-class=\"rightBtn\")",
                 "\nnav.bar-tab",
                 "    ul.tab-inner",
                 "        li.tab-item.active",
@@ -59,12 +69,16 @@ rbDirect.directive("codeArea", function ($compile) {
                 "                .tab-label Tab 2",
                 "\n.content.content-padded",
                 "    ul.list",
-                "        li some list item"
+                "        li(ng-repeat=\"item in items\")",
+                "            span {{item.name}}",
+                "            span.count {{item.count}}",
+                "        li some other list item",
+                "            span.chevron"
             ].join("\n"),
             "htmlmixed": [
                 "<header class=\"bar-title\">",
                 "    <a class=\"button\" href=\"#\">Left</a>",
-                "    <h1 class=\"title\">Title</h1>",
+                "    <h1 class=\"title\">{{myTitle}}</h1>",
                 "    <a class=\"button\" href=\"#\"><i class=\"icon-cog\"></i></a>",
                 "</header>",
                 "",
@@ -191,6 +205,32 @@ rbDirect.directive("apiJson", function ($compile, $http) {
             lineNumbers: true,
             matchBrackets : true,
             autoClearEmptyLines : true
+        });
+
+        var defaultJSON = {
+            "myTitle": "Title Bar",
+            "rightBtn": "icon-edit",
+            "items": [
+                {"name": "item 1", "count": 3},
+                {"name": "item 2", "count": 4}
+            ]
+        };
+
+        cm.setValue(jsl.format.formatJson(JSON.stringify(defaultJSON)));
+        scope.json = jsl.parser.parse(cm.getValue());
+
+        cm.on("change", function () {
+            setTimeout(
+                function () {
+                    try {
+                        var parseResult = jsl.parser.parse(cm.getValue());
+                        scope.json = parseResult;
+                        scope.$emit("json-change");
+                    } catch (parseException) {
+                        // console.log(parseException.message);
+                    }
+                },
+                100);
         });
 
         scope.$on("test-api", function () {
