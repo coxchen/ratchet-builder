@@ -38,7 +38,6 @@ rbDirect.directive("iphoneWindow", function ($compile) {
             }
 
             scope.$apply();
-            console.log(scope);
         });
     };
 
