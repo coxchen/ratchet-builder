@@ -4,7 +4,8 @@ var rbApp = angular.module("ratchet-builder", ["ratchet-builder-directives"]);
 function PrototypeCtrl ($scope, $window) {
 
     var iphone = $(".iphone"),
-        dockingOffset = ($(window).height() + 20 + $(".docs-masthead").height() - iphone.height())/2;
+        dockingOffset = ($(window).height() + 10 + $(".docs-masthead").height() - iphone.height())/2;
+
     iphone.css({top: Math.round(dockingOffset)});
 
     var cmModeToggle = $("#cm-mode");
