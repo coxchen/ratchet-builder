@@ -25,6 +25,10 @@ block content
                         #iwindow(iphone-window, content="prototypeSrc")
 
                 article.component.active
+                    .component-example.component-example-fullbleed
+                        header.bar-title
+                            h1.title Title
+                article.component.active
                     h3.component-title Coding Area
                     div
                         span.component-description Enter
@@ -32,19 +36,16 @@ block content
                             .toggle-handle
                         span.component-description code and see the prototype immediately.
                     br
-                    .component-example.component-example-fullbleed
-                        header.bar-title
-                            h1.title Title
                     .tabbable
                         ul.nav.nav-tabs
                             li.active
-                                a(href="#page1", data-toggle="tab") Page 1
+                                a(href="#page1-code", data-toggle="tab") page1
                             li
-                                a(href="#page2", data-toggle="tab") Page 2
+                                a(href="#page2-code", data-toggle="tab") page2
                         .tab-content
-                            #page1.tab-pane.active
+                            #page1-code.tab-pane.active
                                 code-area
-                            #page2.tab-pane
+                            #page2-code.tab-pane
                                 code-area
                 article.component.active
                     h3.component-title JSON API
