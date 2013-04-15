@@ -1,6 +1,129 @@
-var rbDirect = angular.module("ratchet-builder-directives", []);
+var rbDirect = angular.module('ratchet-builder-directives', ['ratchet-builder-services']);
 
-rbDirect.directive("iphoneWindow", function ($compile) {
+// ngClick is not working, so we have ngTap to help
+rbDirect.directive('ngTap', ['$route', function ($route) {
+    var isTouchDevice = !!("ontouchstart" in window);
+    return function(scope, elm, attrs) {
+        if (isTouchDevice) {
+            var tapping = false;
+            elm.bind('touchstart', function() { tapping = true; });
+            elm.bind('touchmove', function() { tapping = false; });
+            elm.bind('touchend', function() {
+                if (tapping) scope.$apply(attrs.ngTap);
+            });
+        } else {
+            elm.bind('click', function() {
+                // scope.$apply(attrs.ngTap);
+                $route.current.locals.$scope.$apply(attrs.ngTap);
+            });
+        }
+    };
+}]);
+
+rbDirect.directive('prototypeArea', ['$templateCache', '$route', '$location', '$compile', '$rootScope', 'render', function ($templateCache, $route, $location, $compile, $rootScope, render) {
+
+    var linker = function (scope, element, attrs) {
+
+        var _fixAnchor = function () {
+            var anchors = element.find('a');
+            for (var i = 0; i < anchors.length; i++) {
+                var targetPath = anchors[i].pathname.substring(1),
+                    targetRoute = anchors[i].pathname.replace('.html', ''),
+                    template = $templateCache.get(targetPath);
+                if (template) {
+                    $(anchors[i]).attr('href', '');
+                    $(anchors[i]).attr('ng-tap', 'navTo(\'' + targetRoute + '\')');
+                }
+            }
+        };
+
+        var newScope;
+        var _compileWithJson = function () {
+            if (newScope) newScope.$destroy();
+            newScope = scope.$new(true);
+            $compile(element.contents())(newScope);
+
+            var jsonArea = angular.element($("api-json")),
+                providedJSON = jsonArea.scope().json;
+
+            for (var key in providedJSON) {
+                newScope[key] = providedJSON[key];
+            }
+        };
+
+        var _initTemplates = function () {
+            var _routeIds = [];
+            $(".tab-pane code-area").each(function () {
+                var codeArea = angular.element(this),
+                    src = codeArea.scope().prototypeCode,
+                    mode = codeArea.scope().mode,
+                    templateId = this.id.replace('-code', '.html'),
+                    routeId = '/' + this.id.replace('-code', ''),
+                    template = render[mode](src);
+
+                _routeIds.push(routeId);
+                $templateCache.put(templateId, template);
+                window.routeProvider.when(routeId, {controller: PageCtrl, templateUrl: templateId});
+            });
+
+            $location.path(_routeIds[0]);
+            scope.$apply();
+        };
+
+        setTimeout(function () {
+            _initTemplates();
+        }, 100);
+
+        scope.$on('$routeChangeSuccess', function (e) {
+            // need to apply the template again to make angular work
+            var currentTemplate = $route.current.locals.$template;
+            element.html(currentTemplate);
+
+            _fixAnchor();
+            _compileWithJson();
+
+            var pageIds = [];
+            $('.tab-pane').each(function () {
+                pageIds.push('/' + this.id.replace('-tab', ''));
+            });
+
+            if (pageIds.indexOf($location.$$path) >= 0) {
+                $('.tab-pane').removeClass('active');
+
+                var targetTabId = '#' + $location.$$path.substring(1) + '-tab';
+                $(targetTabId).addClass('active');
+                $('#code-tabs a[href="' + targetTabId + '"]').tab('show');
+                $rootScope.$broadcast("tab-change");
+            }
+        });
+
+        scope.$on("update-iwindow", function (event) {
+            var activeCodeArea = angular.element($(".tab-pane.active code-area")),
+                srcCode = activeCodeArea.scope().prototypeCode,
+                rendered = render[activeCodeArea.scope().mode](srcCode);
+            element.html(rendered);
+
+            var templateId = activeCodeArea[0].id.replace('-code', '.html');
+            $templateCache.put(templateId, rendered);
+
+            _fixAnchor();
+            _compileWithJson();
+
+            scope.$apply();
+        });
+    };
+
+    return {
+        restrict: "ACE",
+        replace: true,
+        link: linker,
+        scope: {
+            content: '='
+        }
+    };
+}]);
+
+rbDirect.directive("iphoneWindow", function ($compile, $templateCache) {
 
     var linker = function (scope, element, attrs) {
 
@@ -26,9 +149,14 @@ rbDirect.directive("iphoneWindow", function ($compile) {
             var activeCodeArea = angular.element($(".tab-pane.active code-area")),
                 srcCode = activeCodeArea.scope().prototypeCode;
 
+            console.log('# active codeArea');
+            console.log(activeCodeArea);
+            var activeCodeAreaId = activeCodeArea[0].id,
+                templateId = activeCodeArea[0].id.replace('-code', '.html');
+
             if (newScope) newScope.$destroy();
             newScope = scope.$new(true);
-            compiler[activeCodeArea.scope().mode].compile(srcCode, newScope);
+            compiler[activeCodeArea.scope().mode].compile(srcCode, newScope, templateId);
 
             var jsonArea = angular.element($("api-json")),
                 providedJSON = jsonArea.scope().json;
@@ -65,11 +193,11 @@ rbDirect.directive("codeArea", function ($compile) {
                 "\nnav.bar-tab",
                 "    ul.tab-inner",
                 "        li.tab-item.active",
-                "            a",
+                "            a(href=\"page1.html\")",
                 "                i.icon-compass",
                 "                .tab-label Tab 1",
                 "        li.tab-item",
-                "            a",
+                "            a(href=\"page2.html\")",
                 "                i.icon-user",
                 "                .tab-label Tab 2",
                 "\n.content.content-padded",

@@ -1,5 +1,20 @@
-var rbApp = angular.module("ratchet-builder", ["ratchet-builder-directives"]);
+var rbApp = angular.module('ratchet-builder', ['ratchet-builder-directives']);
 
+rbApp.config(function ($routeProvider) {
+    window.routeProvider = $routeProvider;
+
+    $routeProvider.
+        when('/home', {controller: PageCtrl, templateUrl: 'home.html'}).
+        otherwise({redirectTo: '/home'});
+    });
+
+function PageCtrl ($scope, $location) {
+
+    $scope.navTo = function (routeId) {
+        console.log('[navTo] ' + routeId);
+        $location.path(routeId);
+    };
+}
 
 function PrototypeCtrl ($scope, $window) {
 
@@ -24,8 +39,6 @@ function PrototypeCtrl ($scope, $window) {
 
     $(document).ready(function () {
         $scope.$broadcast("update-iwindow");
-        new FingerBlast('.iphone-content');
-        new FingerBlast('.ratchet-component');
     });
 
     $(document).on("click.tab.data-api", "[data-toggle='tab']", function () {

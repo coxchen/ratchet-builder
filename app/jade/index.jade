@@ -3,6 +3,7 @@ extends layout
 block jsext
     script(type="text/javascript", src="js/ratchet-builder.js")
     script(type="text/javascript", src="js/ratchet-builder-directives.js")
+    script(type="text/javascript", src="js/ratchet-builder-services.js")
 
 block content
     <!-- Masthead & navigation -->
@@ -22,13 +23,10 @@ block content
             .docs-inner-wrapper
                 .iphone.iphone-fixed
                     .iphone-content
-                        #iwindow(iphone-window, content="prototypeSrc")
+                        //- #iwindow(iphone-window, content="prototypeSrc")
+                        #iwindow.prototype-area(ng-view)
 
-                article.component.active
-                    .component-example.component-example-fullbleed
-                        header.bar-title
-                            h1.title Title
-                article.component.active
+                article.component.coding-area.active
                     h3.component-title Coding Area
                     div
                         span.component-description Enter
@@ -37,17 +35,17 @@ block content
                         span.component-description code and see the prototype immediately.
                     br
                     .tabbable
-                        ul.nav.nav-tabs
+                        ul#code-tabs.nav.nav-tabs
                             li.active
-                                a(href="#page1-code", data-toggle="tab") page1
+                                a(href="#page1-tab", data-toggle="tab") page1.html
                             li
-                                a(href="#page2-code", data-toggle="tab") page2
+                                a(href="#page2-tab", data-toggle="tab") page2.html
                         .tab-content
-                            #page1-code.tab-pane.active
-                                code-area
-                            #page2-code.tab-pane
-                                code-area
-                article.component.active
+                            #page1-tab.tab-pane.active
+                                code-area#page1-code
+                            #page2-tab.tab-pane
+                                code-area#page2-code
+                article.component.coding-area.active
                     h3.component-title JSON API
                     .input-prepend.input-append
                         .btn-group
@@ -60,6 +58,18 @@ block content
                         input#api(ng-model="api", type="text", style="width:400px;")
                         button.btn(style="height:40px;",ng-click="testAPI()") test
                     api-json
+    script(type="text/ng-template", id="home.html")
+        header.bar-title
+            h1.title Ratchet Builder
+        .content.content-padded
+            strong Ratchet Builder Home
+            ul.list.inset
+                li
+                    a(href="page1.html") Page 1
+                    span.chevron
+                li
+                    a(href="page2.html") Page 2
+                    span.chevron
 
 
     .docs-outer-wrapper.docs-footer
