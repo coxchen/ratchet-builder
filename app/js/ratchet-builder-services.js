@@ -18,7 +18,7 @@ rbServ.factory('codeSnippet', [function () {
             jade: [
                 "header.bar-title",
                 "    h1.title Page 1",
-                "\n.content.content-padded",
+                "\n.content",
                 "    ul.list",
                 "        li",
                 "            a(href=\"page2.html\") Page 2",
@@ -46,7 +46,7 @@ rbServ.factory('codeSnippet', [function () {
                 "header.bar-title",
                 "    a.button-prev(href=\"page1.html\") Page 1",
                 "    h1.title Page 2",
-                "\n.content.content-padded",
+                "\n.content",
                 "    ul.list",
                 "        li(ng-repeat=\"item in items\")",
                 "            span {{item.name}}",

@@ -39,6 +39,7 @@ function PrototypeCtrl ($scope, $window) {
 
     $(document).ready(function () {
         $scope.$broadcast("update-iwindow");
+        new FingerBlast('.ratchet-component');
     });
 
     $(document).on("click.tab.data-api", "[data-toggle='tab']", function () {
