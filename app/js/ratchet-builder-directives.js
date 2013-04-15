@@ -179,89 +179,15 @@ rbDirect.directive("iphoneWindow", function ($compile, $templateCache) {
     };
 });
 
-rbDirect.directive("codeArea", function ($compile) {
+rbDirect.directive("codeArea", ['$compile', 'codeSnippet', function ($compile, codeSnippet) {
 
     var linker = function (scope, element, attrs) {
 
+        var pageId = element.attr('id').replace('-code', '');
+
         scope.code = {
-            "jade": [
-                "header.bar-title",
-                "    a.button(href=\"#\") Left",
-                "    h1.title {{myTitle}}",
-                "    a.button(href=\"#\")",
-                "        i(ng-class=\"rightBtn\")",
-                "\nnav.bar-tab",
-                "    ul.tab-inner",
-                "        li.tab-item.active",
-                "            a(href=\"page1.html\")",
-                "                i.icon-compass",
-                "                .tab-label Tab 1",
-                "        li.tab-item",
-                "            a(href=\"page2.html\")",
-                "                i.icon-user",
-                "                .tab-label Tab 2",
-                "\n.content.content-padded",
-                "    ul.list",
-                "        li(ng-repeat=\"item in items\")",
-                "            span {{item.name}}",
-                "            span.count {{item.count}}",
-                "        li some other list item",
-                "            span.chevron"
-            ].join("\n"),
-            "htmlmixed": [
-                "<header class=\"bar-title\">",
-                "    <a class=\"button\" href=\"#\">Left</a>",
-                "    <h1 class=\"title\">{{myTitle}}</h1>",
-                "    <a class=\"button\" href=\"#\"><i class=\"icon-cog\"></i></a>",
-                "</header>",
-                "",
-                "<nav class=\"bar-tab\">",
-                "    <ul class=\"tab-inner\">",
-                "        <li class=\"tab-item active\">",
-                "            <a href=\"\">",
-                "                <i class=\"icon-compass\"></i>",
-                "                <div class=\"tab-label\">Nearby</div>",
-                "            </a>",
-                "        </li>",
-                "        <li class=\"tab-item\">",
-                "            <a href=\"\">",
-                "                <i class=\"icon-comment\"></i>",
-                "                <div class=\"tab-label\">Chat</div>",
-                "            </a>",
-                "        </li>",
-                "        <li class=\"tab-item\">",
-                "            <a href=\"\">",
-                "                <i class=\"icon-user\"></i>",
-                "                <div class=\"tab-label\">Profile</div>",
-                "            </a>",
-                "        </li>",
-                "    </ul>",
-                "</nav>",
-                "",
-                "<div class=\"content\">",
-                "    <ul class=\"list\">",
-                "        <li>",
-                "            <a href=\"#\">",
-                "                List item 1",
-                "                <span class=\"chevron\"></span>",
-                "            </a>",
-                "        </li>",
-                "        <li>",
-                "            <a href=\"#\">",
-                "                List item 2",
-                "                <span class=\"chevron\"></span>",
-                "                <span class=\"count\">2</span>",
-                "            </a>",
-                "        </li>",
-                "        <li>",
-                "            List item 3",
-                "            <div class=\"toggle\">",
-                "                <div class=\"toggle-handle\"></div>",
-                "            </div>",
-                "        </li>",
-                "    </ul>",
-                "</div>"
-            ].join("\n")
+            jade: codeSnippet[pageId].jade,
+            htmlmixed: codeSnippet[pageId].htmlmixed
         };
 
         var _getCMMode = function () {
@@ -322,7 +248,7 @@ rbDirect.directive("codeArea", function ($compile) {
             content: '='
         }
     };
-});
+}]);
 
 rbDirect.directive("apiJson", function ($compile, $http) {
 
