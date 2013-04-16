@@ -27,9 +27,10 @@ rbDirect.directive('prototypeArea', ['$templateCache', '$route', '$location', '$
         var _fixAnchor = function () {
             var anchors = element.find('a');
             for (var i = 0; i < anchors.length; i++) {
-                var targetPath = anchors[i].pathname.substring(1),
-                    targetRoute = anchors[i].pathname.replace('.html', ''),
+                var targetPath = anchors[i].pathname.split('/').pop(),
+                    targetRoute = targetPath.replace('.html', ''),
                     template = $templateCache.get(targetPath);
+
                 if (template) {
                     $(anchors[i]).attr('href', '');
                     $(anchors[i]).attr('ng-tap', 'navTo(\'' + targetRoute + '\')');
